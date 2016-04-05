@@ -7,6 +7,7 @@ class Currency():
         self.amount = amount
         self.currency_code = self.symbol_to_code(currency_code)
 
+
     symbol_dict = {
     '$':'USD',
     '€':'EUR',
@@ -24,21 +25,24 @@ class Currency():
             return currency_code.rstrip()
 
 
+    def __str__(self):
+        return self.currency_code + ': ' + str(self.amount)
+
     def __eq__(self, other):
         return self.currency_code == other.currency_code and self.amount == other.amount
 
 
     def __add__(self, other):
         if self.currency_code == other.currency_code:
-            return self.amount + other.amount
+            return Currency(self.amount + other.amount, self.currency_code)
         else:
             raise DifferentCurrencyCodeError
 
     def __sub__(self, other):
         if self.currency_code == other.currency_code:
-            return self.amount - other.amount
+            return Currency(self.amount - other.amount, self.currency_code)
         else:
             raise DifferentCurrencyCodeError
 
     def __mul__(self, other):
-        return float("%.2f" % Currency(self.amount * other.amount, self.currency_code).amount)
+        return Currency(float("%.2f" % Currency(self.amount * other.amount, self.currency_code).amount), self.currency_code)
