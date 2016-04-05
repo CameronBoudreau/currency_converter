@@ -13,12 +13,16 @@ class Currency():
     '¥':'JPY'
     }
 
+    def pass_code(self):
+        return self.currency_code
+
     def symbol_to_code(self, currency_code, symbol_dict=symbol_dict):
         if not currency_code.isalnum():
             currency_code = ''.join(i for i in currency_code if not i == '.' and not i.isalnum() or i.isspace())
             return symbol_dict[currency_code]
         else:
             return currency_code.rstrip()
+
 
     def __eq__(self, other):
         return self.currency_code == other.currency_code and self.amount == other.amount
